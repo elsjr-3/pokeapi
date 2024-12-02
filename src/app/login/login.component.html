@@ -1,0 +1,17 @@
+<div class="login-container">
+  <img class="avatar logo mat-elevation-z8 mt-5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjTjeNHyqBHdImqGDutRVJ02tBUSDXaZfgtg&s" alt="Descripción de la imagen" width="300" height="120">
+
+  <h2>Iniciar sesión</h2>
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Correo:</label>
+      <input type="email" id="username" [(ngModel)]="username" name="username" required>
+    </div>
+    <div>
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required>
+    </div>
+    <button type="submit">Continuar</button>
+  </form>
+  <p *ngIf="error" class="error">{{ error }}</p>
+</div>
