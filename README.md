@@ -134,31 +134,6 @@ export class UserService {
 }
 ```
 
-En resumen, cuando el usuario ingresa sus credenciales y las envía, el LoginComponent se encarga de consultar al UserService, que obtiene los usuarios desde la API. Luego, el LoginComponent verifica si las credenciales coinciden con algún usuario de la lista y actúa en consecuencia: redirige al dashboard si son correctas, o muestra una alerta si no lo son.
-
-# PRUEBAS DE ESCRITORIO
-Primero entramos y escribimos las credenciales incorrectas , y se muestra la alerta. Luego, escribimos las credenciales correctas
-si quieres probar con alguno puedes probar con el usuario: "Jhon" y contraseña "123456" o cualquier otro usuario que se muestre en la imagen.
-
-![USUARIOS API](src/assets/images/LISTA%20DE%20USUARIOS%20API.png)
-
-![LOGIN INCORRECTO](src/assets/images/LOGIN%20INCORRECTO1.png)
-
-![ALERTA](src/assets/images/LOGIN%20INCORRECTO2.png)
-
-![LOGIN CORRECTO](src/assets/images/LOGIN%20CORRECTO.png)
-
-Ahora podemos entrar en el Dashboard y verificar que se muestren los usuarios correctos con su paginación, para que no estén amontonados y feos los datos.
-
-![TABLA DE USUARIOS](src/assets/images/TABLA%20DE%20USUARIOS.png)
-
-![TABLA DE USUARIOS2](src/assets/images/TABLA%20DE%20USUARIOS2.png)
-
-
-
-
-
-
 
 
 
