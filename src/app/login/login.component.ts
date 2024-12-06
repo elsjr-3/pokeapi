@@ -29,7 +29,7 @@ export class LoginComponent {
         if (user) {
           // Usuario y contraseña correctos: almacenar información en localStorage
           localStorage.setItem('loggedUser', JSON.stringify(user));
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/users']);
         } else {
           // Usuario o contraseña incorrectos: mostrar alerta
           window.alert('Usuario o contraseña incorrectos');

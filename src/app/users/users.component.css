@@ -133,28 +133,31 @@
   
   .pokemon-details {
     display: flex;
-    gap: 24px;
+    gap: 16px; /* Reducido el espacio entre los elementos */
     align-items: flex-start;
+    max-width: 100px; /* Limita el ancho máximo del contenedor */
   }
   
   .detail-image {
-    width: 120px;
-    height: 120px;
+    width: 80px; /* Reducido el tamaño de la imagen */
+    height: 80px; /* Reducido el tamaño de la imagen */
     object-fit: contain;
     background-color: #f8f9fa;
     border-radius: 8px;
-    padding: 8px;
+    padding: 6px; /* Menos espacio alrededor de la imagen */
   }
   
   .detail-info {
     flex: 1;
+    font-size: 14px; /* Reducido el tamaño de la fuente */
   }
   
   .detail-info p {
-    margin: 8px 0;
+    margin: 6px 0; /* Menos espacio entre párrafos */
     color: #495057;
   }
   
   .detail-info strong {
     color: #212529;
   }
+  

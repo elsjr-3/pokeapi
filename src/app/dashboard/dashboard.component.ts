@@ -13,10 +13,7 @@ import { User } from '../models/user.model';
 })
 export class DashboardComponent implements OnInit {
   menuItems = [
-    { name: 'PERFIL', link: '/dashboard/profile' },
-    { name: 'CONFIGURACION', link: '/dashboard/settings' },
-    { name: 'PRIVACIDAD', link: '/dashboard/privacy' },
-    { name: 'ANUNCIOS', link: '/dashboard/ads' },
+   
     { name: 'POKEMONES', link: '/dashboard/users' }
   ];
 
@@ -50,9 +47,5 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  closeDropdown(event: Event) {
-    if (!(event.target as HTMLElement).closest('.user-profile')) {
-      this.showDropdown = false;
-    }
-  }
+
 }

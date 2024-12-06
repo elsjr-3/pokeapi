@@ -12,8 +12,8 @@ import { Pokemon } from '../models/pokemon.model';
     <div class="table-container">
       <div class="card">
         <div class="card-header">
-          <h2 class="card-title">Pokemons</h2>
-          <div class="header-badge">Total: {{ totalPokemons }}</div>
+          <h2 class="card-title">Pokémons</h2>
+          
         </div>
         <div class="card-content">
           <div class="search-container">
@@ -21,7 +21,7 @@ import { Pokemon } from '../models/pokemon.model';
               type="id"
               [(ngModel)]="searchTerm"
               (input)="onSearch()"
-              placeholder="Search Pokémon..."
+              placeholder="Buscar Pokémon..."
               class="search-input"
             />
           </div>
@@ -42,13 +42,13 @@ import { Pokemon } from '../models/pokemon.model';
                       </span>
                     </th>
                     <th (click)="sort('name')" class="sortable-header">
-                      Name 
+                      Nombre 
                       <span class="sort-icon" [ngClass]="getSortClass('name')">
                         {{ getSortClass('name') === 'ascending' ? '↑' : getSortClass('name') === 'descending' ? '↓' : '↕' }}
                       </span>
                     </th>
-                    <th>Image</th>
-                    <th>Actions</th>
+                    <th>Imagen</th>
+                    <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -61,22 +61,23 @@ import { Pokemon } from '../models/pokemon.model';
                       </div>
                     </td>
                     <td class="actions-cell">
-                      <button (click)="viewPokemonInfo(pokemon)" class="action-btn info-btn">
-                        Info
-                      </button>
-                      <button (click)="editPokemon(pokemon)" class="action-btn edit-btn">
-                        Edit
-                      </button>
-                      <button (click)="deletePokemon(pokemon)" class="action-btn delete-btn">
-                        Delete
-                      </button>
+                    <button (click)="viewPokemonInfo(pokemon)" class="action-btn info-btn">
+  &#8505;  <!-- Ícono de signo de admiración -->
+</button>
+<button (click)="editPokemon(pokemon)" class="action-btn edit-btn">
+  ✏️  <!-- Ícono de lápiz -->
+</button>
+<button (click)="deletePokemon(pokemon)" class="action-btn delete-btn">
+  🗑️  <!-- Ícono de bote de basura -->
+</button>
+
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="pagination">
-              <span class="pagination-info">Mostrando del {{ startIndex + 1 }} al {{ endIndex }} de {{ totalPokemons }} pokemons</span>
+              <span class="pagination-info">Del {{ startIndex + 1 }} al {{ endIndex }} de {{ totalPokemons }} pokemons</span>
               <div class="pagination-buttons">
                 <button 
                   (click)="previousPage()" 
@@ -84,92 +85,93 @@ import { Pokemon } from '../models/pokemon.model';
                   class="pagination-btn"
                   [class.disabled]="currentPage === 1"
                 >
-                  Previous
+                <
                 </button>
-                <span class="page-number">Page {{ currentPage }}</span>
+                <span class="page-number"> {{ currentPage }}</span>
                 <button 
                   (click)="nextPage()" 
                   [disabled]="currentPage * pageSize >= totalPokemons" 
                   class="pagination-btn"
                   [class.disabled]="currentPage * pageSize >= totalPokemons"
                 >
-                  Next
+                >
                 </button>
               </div>
             </div>
           </ng-template>
         </div>
       </div>
+
       <!-- Modal de Edición -->
-    <div *ngIf="showEditModal" class="modal-overlay">
-      <div class="modal-container">
-        <div class="modal-header">
-          <h3>Edit Pokémon</h3>
-          <button class="close-button" (click)="closeEditModal()">&times;</button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="pokemonName">Name:</label>
-            <input
-              id="pokemonName"
-              type="text"
-              [(ngModel)]="tempPokemonName"
-              class="form-control"
-            />
+      <div *ngIf="showEditModal" class="modal-overlay">
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3>Editar Pokémon</h3>
+            <button class="close-button" (click)="closeEditModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="pokemonName">Nombre:</label>
+              <input
+                id="pokemonName"
+                type="text"
+                [(ngModel)]="tempPokemonName"
+                class="form-control"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn cancel-btn" (click)="closeEditModal()">Cancelar</button>
+            <button class="btn save-btn" (click)="saveEdit()">Guardar</button>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn cancel-btn" (click)="closeEditModal()">Cancel</button>
-          <button class="btn save-btn" (click)="saveEdit()">Save</button>
-        </div>
       </div>
-    </div>
 
-   <!-- Modal de Info -->
-    <div *ngIf="showInfoModal && selectedPokemon" class="modal-overlay">
-      <div class="modal-container">
-        <div class="modal-header">
-          <h3>{{ selectedPokemon.name | titlecase }} Information</h3>
-          <button class="close-button" (click)="closeInfoModal()">&times;</button>
-        </div>
-        <div class="modal-body pokemon-info">
-          <div class="pokemon-image">
-            <img 
-              [src]="selectedPokemon.sprites.front_default" 
-              [alt]="selectedPokemon.name"
-              onerror="this.src='assets/placeholder.png'"
-            >
-          </div>
-          <div class="pokemon-details">
-            <p><strong>Type:</strong> {{ getTypes() }}</p>
-            <p><strong>Abilities:</strong> {{ getAbilities() }}</p>
-            <p><strong>Height:</strong> {{ selectedPokemon.height }}</p>
-            <p><strong>Weight:</strong> {{ selectedPokemon.weight }}</p>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn cancel-btn" (click)="closeInfoModal()">Close</button>
-        </div>
+ <!-- Modal de Información -->
+<div *ngIf="showInfoModal && selectedPokemon" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3>{{ selectedPokemon.name | titlecase }} Información</h3>
+      <button class="close-button" (click)="closeInfoModal()">&times;</button>
+    </div>
+    <div class="modal-body pokemon-info">
+      <div class="pokemon-image">
+        <img 
+          [src]="selectedPokemon.sprites.front_default" 
+          [alt]="selectedPokemon.name"
+          onerror="this.src='assets/placeholder.png'"
+        >
+      </div>
+      <div class="pokemon-details">
+        <p><strong>Tipo:</strong> {{ getTypes() }}</p>
+        <p><strong>Habilidades:</strong> {{ getAbilities() }}</p>
+        <p><strong>Altura:</strong> {{ selectedPokemon.height }}</p>
+        <p><strong>Peso:</strong> {{ selectedPokemon.weight }}</p>
       </div>
     </div>
+    <div class="modal-footer">
+      <button class="btn cancel-btn" (click)="closeInfoModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
 
-    <!-- Modal de Eliminación -->
-    <div *ngIf="showDeleteModal" class="modal-overlay">
-      <div class="modal-container">
-        <div class="modal-header">
-          <h3>Delete Pokémon</h3>
-          <button class="close-button" (click)="closeDeleteModal()">&times;</button>
-        </div>
-        <div class="modal-body">
-          <p>Are you sure you want to delete {{ deletingPokemon?.name }}?</p>
-        </div>
-        <div class="modal-footer">
-          <button class="btn cancel-btn" (click)="closeDeleteModal()">Cancel</button>
-          <button class="btn delete-btn" (click)="confirmDelete()">Delete</button>
+
+      <!-- Modal de Eliminación -->
+      <div *ngIf="showDeleteModal" class="modal-overlay">
+        <div class="modal-container">
+          <div class="modal-header">
+            <h3>Eliminar Pokémon</h3>
+            <button class="close-button" (click)="closeDeleteModal()">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>¿Estás seguro de que deseas eliminar a {{ deletingPokemon?.name }}?</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn cancel-btn" (click)="closeDeleteModal()">Cancelar</button>
+            <button class="btn delete-btn" (click)="confirmDelete()">Eliminar</button>
+          </div>
         </div>
       </div>
-    </div>
-    
     </div>
   `,
   styles: [`
@@ -178,6 +180,7 @@ import { Pokemon } from '../models/pokemon.model';
       padding: 20px;
       background-color: #f5f5f5;
       min-height: 100vh;
+      font-family: Verdana, sans-serif; 
     }
       .pokemon-info {
       display: flex;
@@ -185,10 +188,12 @@ import { Pokemon } from '../models/pokemon.model';
       align-items: center;
       padding: 20px;
     }
+ 
+
 
     .pokemon-image {
-      width: 950px;
-      height: 950px;
+      width: 150px;
+      height: 150px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -391,14 +396,23 @@ import { Pokemon } from '../models/pokemon.model';
       margin: 0 4px;
     }
 
-    .info-btn {
-      background: #007bff;
-      color: white;
-    }
+    .info-btn, .edit-btn, .delete-btn {
+  color: blue;
+  font-weight: 600;  /* Resaltar el texto */
+  text-transform: uppercase;
+}
 
-    .info-btn:hover {
-      background: #0056b3;
-    }
+.info-btn:hover, .edit-btn:hover, .delete-btn:hover {
+  opacity: 0.8;
+}
+.skeleton {
+  background: #ddd;
+  height: 20px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
 
     .edit-btn {
       background: #28a745;
@@ -497,12 +511,20 @@ import { Pokemon } from '../models/pokemon.model';
     }
 
     .modal-container {
-      background-color: white;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 
     .modal-header {
       padding: 1rem;
@@ -518,14 +540,15 @@ import { Pokemon } from '../models/pokemon.model';
     }
 
     .close-button {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: #666;
-      padding: 0;
-      line-height: 1;
-    }
+  background: #f1f1f1;
+  border-radius: 50%;
+  padding: 6px;
+  transition: background-color 0.3s;
+}
+
+.close-button:hover {
+  background-color: #e0e0e0;
+}
 
     .modal-body {
       padding: 1rem;
@@ -595,15 +618,17 @@ export class UserComponent implements OnInit {
    totalPokemons = 0;
    loading = true;
    currentPage = 1;
-   pageSize = 10;
+   pageSize = 5;
    sortField: keyof Pokemon | null = null;
    sortDirection: 'asc' | 'desc' | null = null;
    skeletonItems = new Array(5).fill(0);
    searchTerm: string = '';
  
    // Nuevas propiedades para los modales
-   showInfoModal = false;
-   selectedPokemon: Pokemon | null = null;
+   showInfoModal: boolean = false;  // Controla la visibilidad del modal
+   selectedPokemon: any = null;      // Guarda el Pokémon seleccionado
+
+  // selectedPokemon: Pokemon | null = null;
    showEditModal = false;
    showDeleteModal = false;
    editingPokemon: Pokemon | null = null;
@@ -755,27 +780,42 @@ export class UserComponent implements OnInit {
      this.showEditModal = false;
      this.editingPokemon = null;
    }
-
-
-  viewPokemonInfo(pokemon: Pokemon) {
-    this.selectedPokemon = { ...pokemon }; // Crear una copia para evitar mutaciones
-    this.showInfoModal = true;
+   viewPokemonInfo(pokemon: any) {
+    this.selectedPokemon = pokemon;   // Guarda el Pokémon seleccionado
+    this.showInfoModal = true;        // Muestra el modal
   }
+  //viewPokemonInfo(pokemon: Pokemon) {
+   // this.selectedPokemon = { ...pokemon }; // Crear una copia para evitar mutaciones
+   // this.showInfoModal = true;
+  //}
 
   closeInfoModal() {
     this.showInfoModal = false;
     this.selectedPokemon = null;
   }
-
   getTypes(): string {
-    if (!this.selectedPokemon) return '';
-    return this.selectedPokemon.types.map(t => t.type.name).join(', ');
+    if (this.selectedPokemon?.types.length > 0) {
+      return this.selectedPokemon.types.map((type: any) => type.type.name).join(', ');
+    }
+    return 'Sin tipos disponibles';
   }
-
+  
   getAbilities(): string {
-    if (!this.selectedPokemon) return '';
-    return this.selectedPokemon.abilities.map(a => a.ability.name).join(', ');
+    if (this.selectedPokemon?.abilities.length > 0) {
+      return this.selectedPokemon.abilities.map((ability: any) => ability.ability.name).join(', ');
+    }
+    return 'Sin habilidades disponibles';
   }
+  
+ // getTypes(): string {
+  //  if (!this.selectedPokemon) return '';
+    //return this.selectedPokemon.types.map(t => t.type.name).join(', ');
+  //}
+
+  //getAbilities(): string {
+    //if (!this.selectedPokemon) return '';
+    //return this.selectedPokemon.abilities.map(a => a.ability.name).join(', ');
+  //}
 
   editPokemon(pokemon: Pokemon) {
     this.editingPokemon = { ...pokemon }; // Crear una copia para evitar mutaciones
@@ -798,6 +838,8 @@ export class UserComponent implements OnInit {
       }
     }
     this.closeEditModal();
+
   }
+
   
   }
